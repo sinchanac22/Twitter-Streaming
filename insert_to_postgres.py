@@ -7,7 +7,7 @@ conn = psycopg2.connect(
     password="Sinchana@2004",  # 🔒 Replace this
     host="localhost",
     port="5432"
-)
+) 
 
 cur = conn.cursor()
 
