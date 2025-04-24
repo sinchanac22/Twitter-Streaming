@@ -33,6 +33,7 @@ This project demonstrates a data pipeline using **Kafka**, **Spark Streaming**, 
 ---
 
 ## 🚀 Step-by-Step Setup
+cd /mnt/c/Users/sinch/Downloads/kafka_2.13-3.6.1
 
 ### 1. Start Kafka and Zookeeper
 ```bash
@@ -48,6 +49,7 @@ bin/kafka-topics.sh --create --topic tweets_topic --bootstrap-server localhost:9
 
 ### 2. Run Kafka Producer (send tweets)
 ```bash
+cd /mnt/c/Users/sinch/OneDrive/Documents/dbt
 python3 kafka_producer.py
 ```
 *Streams tweets (with a delay) to Kafka topic `tweets_topic`. Only prints the first 50 lines.*
@@ -124,7 +126,46 @@ plt.savefig("tweet_sentiment_chart.png")
 plt.show()
 ```
 
+
+#top airlienes
+SELECT airline, COUNT(*) AS total
+FROM tweets
+GROUP BY airline
+ORDER BY total DESC;
+
+#sentiment distribution
+SELECT sentiment, COUNT(*) AS total
+FROM tweets
+GROUP BY sentiment;
+
+#most active users
+SELECT user_name, COUNT(*) AS tweet_count
+FROM tweets
+GROUP BY user_name
+ORDER BY tweet_count DESC
+LIMIT 10;
+
+#top repeated tweets
+SELECT * FROM tweets LIMIT 5;
+
+SELECT text, COUNT(*) AS count
+FROM tweets
+GROUP BY text
+ORDER BY count DESC
+LIMIT 10;
+
+
+
 ---
+
+File Name                 	Purpose
+kafka_producer.py      	Sends tweets to Kafka
+kafka_consumer.py    	Reads tweets from Kafka
+spark_streaming.py	   Processes tweets and counts words
+save_to_postgres.py   	Stores tweet data in PostgreSQL
+batch_analysis.sql	    SQL query for batch processing
+report.pdf or .pptx    	Evaluation of streaming vs batch
+
 
 ## 📌 Notes
 - Spark output is real-time and updates every few seconds.
